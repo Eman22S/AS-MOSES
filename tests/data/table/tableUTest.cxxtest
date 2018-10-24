@@ -22,11 +22,12 @@
 #include <moses/data/table/table.h>
 #include <moses/data/table/table_io.h>
 #include <opencog/atoms/base/Link.h>
-
+#include <moses/moses/scoring/bscores.h>
+#include <moses/moses/scoring/bscores.cc>
 using namespace opencog;
 using namespace combo;
 using namespace std;
-
+using namespace moses;
 const string olabel = "happiness";
 const string label1 = "price";
 const string label2 = "temperature";
@@ -83,6 +84,10 @@ public:
 		ITable it(vector<type_node>(2, id::contin_type));
 		it.push_back({0.4, 244.2});
 		it.push_back({9.5, 4.2});
+		contin_bscore cscore(ot,it);
+		//contin_bscore cscore(ot,it);
+		combo::combo_tree tr = combo::str2combo_tree("+($1, $2)",{});
+		behavioral_score score = cscore(tr);
 		Table table(ot, it);
 		testIStreamTable("10.1,0.4,244.2\n"
 				                 "6.5,9.5,4.2\n", table);
