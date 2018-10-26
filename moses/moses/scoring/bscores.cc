@@ -187,9 +187,10 @@ behavioral_score contin_bscore::operator()(const Handle &program){
     atomese_itable_integrate(program);
 	atomese::Interpreter interpreter(key);
 	ProtoAtomPtr itable = interpreter(subprogram);
-	FloatValuePtr fptr= FloatValueCast(itable);
+	FloatValuePtr fptr = FloatValueCast(itable);
 
-	boost::transform(fptr->value(), target, std::back_inserter(bs), [&] (const vector<double>  iv, const vertex& v){
+	boost::transform(fptr->value(), target, std::back_inserter(bs),
+					 [&](const vector<double>  iv, const vertex& v){
 					contin_t tar = get_contin(v);
 					contin_t res = iv[fptr->value().size()];
 					return  -err_func(res, tar);
