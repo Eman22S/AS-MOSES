@@ -44,6 +44,7 @@
 #include <opencog/util/KLD.h>
 #include <opencog/util/MannWhitneyU.h>
 #include <moses/data/table/table_io.h>
+#include <opencog/atoms/base/Link.h>
 
 #include "bscores.h"
 
@@ -178,6 +179,98 @@ behavioral_score contin_bscore::operator()(const combo_tree &tr) const
 
 	return bs;
 }
+
+behavioral_score contin_bscore::operator()(const Handle &program){
+
+	behavioral_score bs;
+    key = createNode(NODE,"key");
+    atomese_itable_integrate(program);
+	atomese::Interpreter interpreter(key);
+	ProtoAtomPtr itable = interpreter(subprogram);
+	FloatValuePtr fptr= FloatValueCast(itable);
+
+	boost::transform(fptr->value(), target, std::back_inserter(bs), [&] (const vector<double>  iv, const vertex& v){
+					contin_t tar = get_contin(v);
+					contin_t res = iv[fptr->value().size()];
+					return  -err_func(res, tar);
+				});
+
+}
+
+void contin_bscore::atomese_itable_integrate(const Handle &program){
+
+	vector<opencog::combo::multi_type_seq>::const_iterator it;
+
+	for (it = cti.begin(); it < cti.end(); it++) {
+
+        id::type_node col_type = cti.get_types().at(i);
+        int col_size = cti.size();
+
+			for(Handle h: program->getOutgoingSet()) {
+
+			Type t = h->get_type();
+
+			switch (col_type){
+				case id::boolean_type: {
+				if (t == PREDICATE_NODE) {
+					Handle p;
+					std::vector<ProtoAtomPtr> col_values = {};
+					for (int j = 0; j < col_size; j++) {
+						bool col_data = vertex_to_bool(cti.get_column_data(cti.get_labels().at(i)).at(j));
+						col_values.push_back(ProtoAtomPtr(createLink(col_data ? TRUE_LINK : FALSE_LINK)));
+					}
+					ProtoAtomPtr ptr_atom(new LinkValue(col_values));
+					p->setValue(key, ptr_atom);
+					seq.push_back(p);
+					subprogram = createLink(seq, program->get_type());
+				}
+				else if (t == NODE) continue;
+
+				else {
+					atomese_itable_integrate(h);
+					seq.clear();
+					seq.push_back(subprogram);
+
+				}
+				}
+
+				case id::contin_type: {
+
+				if (t == SCHEMA_NODE) {
+					Handle p;
+					std::vector<double> col_values_contin = {};
+					for (int j = 0; j < col_size; j++) {
+						col_values_contin.push_back(get_contin(cti.get_column_data(cti.get_labels().at(i)).at(j)));
+					}
+					ProtoAtomPtr ptr_atom(new FloatValue(col_values_contin));
+					p->setValue(key, ptr_atom);
+					seq.push_back(p);
+					subprogram = createLink(seq, program->get_type());
+				}
+
+				else if (t == NODE) continue;
+
+				else {
+					atomese_itable_integrate(h);
+					seq.clear();
+					seq.push_back(subprogram);
+					}
+
+				}
+
+				default: {
+					std::stringstream ss;
+					ss << col_type;
+					throw ComboException(TRACE_INFO,
+					 "atomese_integrate not handle type_node %s",
+					ss.str().c_str());
+				}
+			}
+        }
+        i++;
+	}
+}
+
 
 behavioral_score contin_bscore::best_possible_bscore() const
 {
@@ -467,6 +560,8 @@ behavioral_score enum_table_bscore::operator()(const combo_tree &tr) const
 	log_candidate_bscore(tr, bs);
 	return bs;
 }
+
+
 
 behavioral_score enum_table_bscore::best_possible_bscore() const
 {

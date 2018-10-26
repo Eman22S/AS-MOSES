@@ -79,14 +79,13 @@ public:
 
 	void test_ContinTable()
 	{
-		vertex_seq o{10.1, 6.5};
+		vertex_seq o{10.0, 6.5};
 		OTable ot(o);
 		ITable it(vector<type_node>(2, id::contin_type));
 		it.push_back({0.4, 244.2});
 		it.push_back({9.5, 4.2});
 		contin_bscore cscore(ot,it);
-		//contin_bscore cscore(ot,it);
-		combo::combo_tree tr = combo::str2combo_tree("+($1, $2)",{});
+		combo::combo_tree tr = combo::str2combo_tree("+($1 $2)",{});
 		behavioral_score score = cscore(tr);
 		Table table(ot, it);
 		testIStreamTable("10.1,0.4,244.2\n"

@@ -39,7 +39,7 @@
 
 #include "scoring_base.h"
 #include "../moses/types.h"
-
+#include <moses/atomese/interpreter/Interpreter.h>
 namespace opencog
 {
 namespace moses
@@ -235,12 +235,12 @@ struct contin_bscore : public bscore_base
 	}
 
 	behavioral_score operator()(const combo_tree &tr) const;
-
+    behavioral_score operator()(const Handle &h);
 	// The best possible bscore is a vector of zeros. That's probably
 	// not quite true, because there could be duplicated inputs, but
 	// that's acceptable for now.
 	behavioral_score best_possible_bscore() const;
-
+	void atomese_itable_integrate(const Handle &h);
 	score_t min_improv() const;
 
 	virtual void set_complexity_coef(unsigned alphabet_size, float stddev);
@@ -250,6 +250,10 @@ struct contin_bscore : public bscore_base
 protected:
 	OTable target;
 	ITable cti;
+	int i = 0;
+	Handle key;
+	Handle subprogram;
+	HandleSeq seq = {};
 
 private:
 	// for a given data point calculate the error of the target

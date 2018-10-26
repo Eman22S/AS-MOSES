@@ -931,6 +931,7 @@ public:
 		return super::front().size();
 	}
 
+
 	bool operator==(const ITable &rhs) const;
 
 	// set input labels
