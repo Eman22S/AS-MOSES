@@ -1,7 +1,6 @@
 ADD_CXXTEST(tableUTest)
 TARGET_LINK_LIBRARIES(tableUTest
-    data
-	moses
+	data
 	ascombo
 	ascomboant
 	${COGUTIL_LIBRARY}
