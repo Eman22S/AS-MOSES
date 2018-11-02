@@ -198,15 +198,15 @@ behavioral_score contin_bscore::operator()(const Handle &program){
 
 	// back insert the score based on the err_func
 	boost::transform(fptr->value(), target, std::back_inserter(bs),
-					 [&](const vector<double>  iv, const vertex& v){
+					 [&](const double iv, const vertex& v){
 					contin_t tar = get_contin(v);
-					contin_t res = iv[fptr->value().size()];
+					contin_t res = iv;
 					return  -err_func(res, tar);
 				});
 
 }
 
-void contin_bscore::atomese_itable_integrate(const Handle &program){
+void contin_bscore::atomese_itable_integrate(const Handle& program){
 
 
 	vector<opencog::combo::multi_type_seq>::const_iterator it;
@@ -219,7 +219,7 @@ void contin_bscore::atomese_itable_integrate(const Handle &program){
         id::type_node col_type = cti.get_types().at(i);
         int col_size = cti.size();
 
-			for(Handle h: program->getOutgoingSet()) {
+			for(const Handle& h: program->getOutgoingSet()) {
 			// type of current handle
 			Type t = h->get_type();
 			// switch on the data types boolean, contin..
