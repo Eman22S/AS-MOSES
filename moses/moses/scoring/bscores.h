@@ -40,6 +40,7 @@
 #include "scoring_base.h"
 #include "../moses/types.h"
 #include <moses/atomese/interpreter/Interpreter.h>
+#include <opencog/atomspace/AtomSpace.h>
 namespace opencog
 {
 namespace moses
@@ -289,6 +290,7 @@ struct contin_bscore : public bscore_base
 					}
 					ProtoAtomPtr ptr_atom(new LinkValue(col_values));
 					p->setValue(key, ptr_atom);
+                    as.add_atom(p);
 
 				}
 				case id::contin_type:
@@ -302,7 +304,7 @@ struct contin_bscore : public bscore_base
 					//create a FloatValue based on the col_values_contin
 					ProtoAtomPtr ptr_atom(new FloatValue(col_values_contin));
 					p->setValue(key, ptr_atom);
-
+                    as.add_atom(p);
 				}
 
 				case id::enum_type:{
@@ -326,6 +328,7 @@ protected:
 	ITable cti;
 	int i = 0;
 	Handle key;
+	Handle outputKey;
 	Handle subprogram;
 	HandleSeq seq = {};
 
