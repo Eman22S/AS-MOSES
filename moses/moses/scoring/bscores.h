@@ -233,6 +233,21 @@ struct contin_bscore : public bscore_base
 		init(eft);
 		_size = table.size();
 	}
+	/**
+	 * constructor of conti_bscore
+	 * based on the Atomspace population
+	 * Using ITable and OTable
+	 *
+	 */
+
+	contin_bscore(const OTable &t, const ITable &r, AtomSpace &as,
+				  err_function_type eft = squared_error)
+			: target(t), cti(r)
+	{
+		init(eft);
+		populate_ats(as);
+	}
+
 
 	behavioral_score operator()(const combo_tree &tr) const;
     behavioral_score operator()(const Handle &h);
@@ -246,7 +261,66 @@ struct contin_bscore : public bscore_base
 	virtual void set_complexity_coef(unsigned alphabet_size, float stddev);
 
 	using bscore_base::set_complexity_coef; // Avoid hiding/shadowing
+	/**
+	 * populating Atomspace using ITable
+	 * @param Atomspace as
+	 * @return void
+	 */
+	void populate_ats(AtomSpace &as)
+	{
+		std::vector<opencog::combo::multi_type_seq>::const_iterator it;
+		for (int i=0, it = cti.begin(); it < cti.end(); it++, i++)
+		{
+			id::type_node col_type = cti.get_types().at(i);
+			int col_size = cti.size();
+			switch (col_type)
+			{
+				case id::boolean_type:{
+					Handle p;
+					std::vector<ProtoAtomPtr> col_values = {};
 
+					for (int j = 0; j < col_size; j++)
+					{
+						// for each element the ith column and the jth row
+						// change the vertex to bool
+						bool col_data = vertex_to_bool(cti.get_column_data(cti.get_labels().at(i)).at(j));
+						//create a ProtoAtomPtr of trueLink and false link then push
+						col_values.push_back(ProtoAtomPtr(createLink(col_data ? TRUE_LINK : FALSE_LINK)));
+					}
+					ProtoAtomPtr ptr_atom(new LinkValue(col_values));
+					p->setValue(key, ptr_atom);
+
+				}
+				case id::contin_type:
+				{
+					Handle p;
+					std::vector<double> col_values_contin = {};
+					for (int j = 0; j < col_size; j++) {
+						//push back each value in the column to vector<double>
+						col_values_contin.push_back(get_contin(cti.get_column_data(cti.get_labels().at(i)).at(j)));
+					}
+					//create a FloatValue based on the col_values_contin
+					ProtoAtomPtr ptr_atom(new FloatValue(col_values_contin));
+					p->setValue(key, ptr_atom);
+
+				}
+
+				case id::enum_type:{
+					//TODO enum_type data to be added to Atomspace
+				}
+				default:{
+					std::stringstream ss;
+					ss << col_type;
+					throw ComboException(TRACE_INFO,
+										 "atomese not handle type_node %s",
+										 ss.str().c_str());
+				}
+
+			}
+
+		}
+
+	}
 protected:
 	OTable target;
 	ITable cti;
