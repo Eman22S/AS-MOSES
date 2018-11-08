@@ -267,18 +267,18 @@ struct contin_bscore : public bscore_base
 	 * @param Atomspace as
 	 * @return void
 	 */
-	void populate_ats(AtomSpace &as)
+    void populate_itable(AtomSpace& _as)
 	{
 		std::vector<multi_type_seq>::const_iterator it;
+
 		for (int i=0, it = itable.begin(); it < itable.end(); it++, i++)
 		{
 			id::type_node col_type = itable.get_types().at(i);
 			int row_size = itable.size();
-
+            Handle in;
 			switch (col_type)
 			{
 				case id::boolean_type:{
-					Handle p;
 					std::vector<ProtoAtomPtr> col_values = {};
 					for (int j = 0; j < row_size; j++)
 					{
@@ -289,13 +289,11 @@ struct contin_bscore : public bscore_base
 						col_values.push_back(ProtoAtomPtr(createLink(col_data ? TRUE_LINK : FALSE_LINK)));
 					}
 					ProtoAtomPtr ptr_atom(new LinkValue(col_values));
-					p->setValue(key, ptr_atom);
-                    as.add_atom(p);
+					in->setValue(key, ptr_atom);
 
 				}
 				case id::contin_type:
 				{
-					Handle p;
 					std::vector<double> col_values_contin = {};
 					for (int j = 0; j < row_size; j++) {
 						//push back each value in the column to vector<double>
@@ -303,8 +301,8 @@ struct contin_bscore : public bscore_base
 					}
 					//create a FloatValue based on the col_values_contin
 					ProtoAtomPtr ptr_atom(new FloatValue(col_values_contin));
-					p->setValue(key, ptr_atom);
-                    as.add_atom(p);
+					in->setValue(key, ptr_atom);
+
 				}
 
 				case id::enum_type:{
@@ -318,17 +316,74 @@ struct contin_bscore : public bscore_base
 										 ss.str().c_str());
 				}
 
+                _as.add_atom(in);
+
 			}
 
 		}
 
-	}
+    }
+    /**
+     *
+     * populate otable in  the Atomspace using OTable
+     * @param _as
+     * @return void
+     */
+    void populate_otable(AtomSpace& _as)
+    {
+        id::type_node out_type = target.get_type();
+        Handle out;
+        int target_size = target.size();
+
+        switch (out_type){
+            case id::boolean_type:
+            {
+                std::vector<ProtoAtomPtr> values = {};
+                for (int j = 0; j < target_size; j++)
+                {
+                    bool out_data = vertex_to_bool(target.at(j));
+                    values.push_back(ProtoAtomPtr(createLink(out_data ? TRUE_LINK : FALSE_LINK)));
+                }
+                ProtoAtomPtr ptr_atom(new LinkValue(values));
+                out->setValue(okey, ptr_atom);
+
+            }
+
+            case id::contin_type:
+            {
+                std::vector<double> col_values_contin = {};
+                for (int j = 0; j < target_size; j++) {
+                    col_values_contin.push_back(get_contin(target.at(j)));
+                }
+                ProtoAtomPtr ptr_atom(new FloatValue(col_values_contin));
+                out->setValue(okey, ptr_atom);
+
+            }
+            case id::enum_type:
+            {
+                //TODO enum populate add Atomspace
+            }
+            default:
+            {
+
+            }
+                _as.add_atom(out);
+
+        }
+
+    }
+    void get_data_from_ats(AtomSpace& _as)
+    {
+       Handle ot_data = _as.fetch_atom(okey);
+
+    }
+
 protected:
 	OTable target;
 	ITable itable;
 	int i = 0;
 	Handle key;
-	Handle outputKey;
+    Handle okey;
 	Handle subprogram;
 	HandleSeq seq = {};
 
