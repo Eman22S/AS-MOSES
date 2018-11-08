@@ -270,10 +270,10 @@ struct contin_bscore : public bscore_base
 	void populate_ats(AtomSpace &as)
 	{
 		std::vector<multi_type_seq>::const_iterator it;
-		for (int i=0, it = cti.begin(); it < cti.end(); it++, i++)
+		for (int i=0, it = itable.begin(); it < itable.end(); it++, i++)
 		{
-			id::type_node col_type = cti.get_types().at(i);
-			int row_size = cti.size();
+			id::type_node col_type = itable.get_types().at(i);
+			int row_size = itable.size();
 
 			switch (col_type)
 			{
@@ -284,7 +284,7 @@ struct contin_bscore : public bscore_base
 					{
 						// for each element the ith column and the jth row
 						// change the vertex to bool
-						bool col_data = vertex_to_bool(cti.get_column_data(cti.get_labels().at(i)).at(j));
+						bool col_data = vertex_to_bool(itable.get_column_data(itable.get_labels().at(i)).at(j));
 						//create a ProtoAtomPtr of trueLink and false link then push
 						col_values.push_back(ProtoAtomPtr(createLink(col_data ? TRUE_LINK : FALSE_LINK)));
 					}
@@ -299,7 +299,7 @@ struct contin_bscore : public bscore_base
 					std::vector<double> col_values_contin = {};
 					for (int j = 0; j < row_size; j++) {
 						//push back each value in the column to vector<double>
-						col_values_contin.push_back(get_contin(cti.get_column_data(cti.get_labels().at(i)).at(j)));
+						col_values_contin.push_back(get_contin(itable.get_column_data(itable.get_labels().at(i)).at(j)));
 					}
 					//create a FloatValue based on the col_values_contin
 					ProtoAtomPtr ptr_atom(new FloatValue(col_values_contin));
@@ -325,7 +325,7 @@ struct contin_bscore : public bscore_base
 	}
 protected:
 	OTable target;
-	ITable cti;
+	ITable itable;
 	int i = 0;
 	Handle key;
 	Handle outputKey;
