@@ -269,18 +269,18 @@ struct contin_bscore : public bscore_base
 	 */
 	void populate_ats(AtomSpace &as)
 	{
-		std::vector<opencog::combo::multi_type_seq>::const_iterator it;
+		std::vector<multi_type_seq>::const_iterator it;
 		for (int i=0, it = cti.begin(); it < cti.end(); it++, i++)
 		{
 			id::type_node col_type = cti.get_types().at(i);
-			int col_size = cti.size();
+			int row_size = cti.size();
+
 			switch (col_type)
 			{
 				case id::boolean_type:{
 					Handle p;
 					std::vector<ProtoAtomPtr> col_values = {};
-
-					for (int j = 0; j < col_size; j++)
+					for (int j = 0; j < row_size; j++)
 					{
 						// for each element the ith column and the jth row
 						// change the vertex to bool
@@ -297,7 +297,7 @@ struct contin_bscore : public bscore_base
 				{
 					Handle p;
 					std::vector<double> col_values_contin = {};
-					for (int j = 0; j < col_size; j++) {
+					for (int j = 0; j < row_size; j++) {
 						//push back each value in the column to vector<double>
 						col_values_contin.push_back(get_contin(cti.get_column_data(cti.get_labels().at(i)).at(j)));
 					}
