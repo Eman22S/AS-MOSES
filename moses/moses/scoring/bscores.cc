@@ -168,7 +168,7 @@ behavioral_score contin_bscore::operator()(const combo_tree &tr) const
 	// put the results into bs.
 	interpreter_visitor iv(tr);
 	auto interpret_tr = boost::apply_visitor(iv);
-	boost::transform(cti, target, back_inserter(bs),
+	boost::transform(itable, target, back_inserter(bs),
 	                 [&](const multi_type_seq &mts, const vertex &v) {
 		                 contin_t tar = get_contin(v),
 				                 res = get_contin(interpret_tr(mts.get_variant()));
@@ -193,7 +193,6 @@ behavioral_score contin_bscore::operator()(const Handle &program){
 	//interpreter interprets the program and return the result
 	// in the form of ProtoAtomPtr
 	ProtoAtomPtr itable = interpreter(subprogram);
-
 	FloatValuePtr fptr = FloatValueCast(itable);
 
 	// back insert the score based on the err_func
@@ -209,15 +208,15 @@ behavioral_score contin_bscore::operator()(const Handle &program){
 void contin_bscore::atomese_itable_integrate(const Handle& program){
 
 
-	vector<opencog::combo::multi_type_seq>::const_iterator it;
+	vector<multi_type_seq>::const_iterator it;
 
 	// iterate on the itable to know the types of data on the table
 	// and then create predicates and schemates and accordingly
 	// populate the predicates and schematea
-	for (it = cti.begin(); it < cti.end(); it++) {
+	for (it = itable.begin(); it < itable.end(); it++) {
 		//get the type of the date at the	ith column of the table
-        id::type_node col_type = cti.get_types().at(i);
-        int col_size = cti.size();
+        id::type_node col_type = itable.get_types().at(i);
+        int col_size = itable.size();
 
 			for(const Handle& h: program->getOutgoingSet()) {
 			// type of current handle
@@ -232,7 +231,7 @@ void contin_bscore::atomese_itable_integrate(const Handle& program){
 					for (int j = 0; j < col_size; j++) {
 						// for each element the ith column and the jth row
 						// change the vertex to bool
-						bool col_data = vertex_to_bool(cti.get_column_data(cti.get_labels().at(i)).at(j));
+						bool col_data = vertex_to_bool(itable.get_column_data(itable.get_labels().at(i)).at(j));
 						//create a ProtoAtomPtr of trueLink and false link then push
 						col_values.push_back(ProtoAtomPtr(createLink(col_data ? TRUE_LINK : FALSE_LINK)));
 					}
@@ -264,7 +263,7 @@ void contin_bscore::atomese_itable_integrate(const Handle& program){
 					std::vector<double> col_values_contin = {};
 					for (int j = 0; j < col_size; j++) {
 						//push back each value in the column to vector<double>
-						col_values_contin.push_back(get_contin(cti.get_column_data(cti.get_labels().at(i)).at(j)));
+						col_values_contin.push_back(get_contin(itable.get_column_data(itable.get_labels().at(i)).at(j)));
 					}
 					//create a FloatValue based on the col_values_contin
 					ProtoAtomPtr ptr_atom(new FloatValue(col_values_contin));
