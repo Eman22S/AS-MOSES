@@ -246,7 +246,9 @@ struct contin_bscore : public bscore_base
 			: target(t), cti(r)
 	{
 		init(eft);
-		populate_ats(as);
+		populate_itable(as);
+        populate_otable(as);
+        otarget= get_data_from_ats(as);
 	}
 
 
@@ -372,14 +374,23 @@ struct contin_bscore : public bscore_base
         }
 
     }
-    void get_data_from_ats(AtomSpace& _as)
+    /**
+     * get data from Atomspace
+     * @param AtomSpace
+     * @retun vector<double>
+     */
+    std::vector<double> get_data_from_ats(AtomSpace& _as)
     {
-       Handle ot_data = _as.fetch_atom(okey);
+       Handle out_data = _as.fetch_atom(okey);
+        ProtoAtomPtr outptr = out_data.get()->getValue(okey);
+        FloatValuePtr out_fptr =FloatValueCast(outptr);
+        return out_fptr->value();
 
     }
 
 protected:
 	OTable target;
+    std::vector<double> otarget;
 	ITable itable;
 	int i = 0;
 	Handle key;
