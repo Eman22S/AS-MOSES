@@ -39,8 +39,7 @@
 
 #include "scoring_base.h"
 #include "../moses/types.h"
-#include <moses/atomese/interpreter/Interpreter.h>
-#include <opencog/atomspace/AtomSpace.h>
+
 namespace opencog
 {
 namespace moses
@@ -234,169 +233,23 @@ struct contin_bscore : public bscore_base
 		init(eft);
 		_size = table.size();
 	}
-	/**
-	 * constructor of conti_bscore
-	 * based on the Atomspace population
-	 * Using ITable and OTable
-	 *
-	 */
-
-	contin_bscore(const OTable &t, const ITable &r, AtomSpace &as,
-				  err_function_type eft = squared_error)
-			: target(t), cti(r)
-	{
-		init(eft);
-		populate_itable(as);
-        populate_otable(as);
-        otarget= get_data_from_ats(as);
-	}
-
 
 	behavioral_score operator()(const combo_tree &tr) const;
-    behavioral_score operator()(const Handle &h);
+
 	// The best possible bscore is a vector of zeros. That's probably
 	// not quite true, because there could be duplicated inputs, but
 	// that's acceptable for now.
 	behavioral_score best_possible_bscore() const;
-	void atomese_itable_integrate(const Handle &h);
+
 	score_t min_improv() const;
 
 	virtual void set_complexity_coef(unsigned alphabet_size, float stddev);
 
 	using bscore_base::set_complexity_coef; // Avoid hiding/shadowing
-	/**
-	 * populating Atomspace using ITable
-	 * @param Atomspace as
-	 * @return void
-	 */
-    void populate_itable(AtomSpace& _as)
-	{
-		std::vector<multi_type_seq>::const_iterator it;
-
-		for (int i=0, it = itable.begin(); it < itable.end(); it++, i++)
-		{
-			id::type_node col_type = itable.get_types().at(i);
-			int row_size = itable.size();
-            Handle in;
-			switch (col_type)
-			{
-				case id::boolean_type:{
-					std::vector<ProtoAtomPtr> col_values = {};
-					for (int j = 0; j < row_size; j++)
-					{
-						// for each element the ith column and the jth row
-						// change the vertex to bool
-						bool col_data = vertex_to_bool(itable.get_column_data(itable.get_labels().at(i)).at(j));
-						//create a ProtoAtomPtr of trueLink and false link then push
-						col_values.push_back(ProtoAtomPtr(createLink(col_data ? TRUE_LINK : FALSE_LINK)));
-					}
-					ProtoAtomPtr ptr_atom(new LinkValue(col_values));
-					in->setValue(key, ptr_atom);
-
-				}
-				case id::contin_type:
-				{
-					std::vector<double> col_values_contin = {};
-					for (int j = 0; j < row_size; j++) {
-						//push back each value in the column to vector<double>
-						col_values_contin.push_back(get_contin(itable.get_column_data(itable.get_labels().at(i)).at(j)));
-					}
-					//create a FloatValue based on the col_values_contin
-					ProtoAtomPtr ptr_atom(new FloatValue(col_values_contin));
-					in->setValue(key, ptr_atom);
-
-				}
-
-				case id::enum_type:{
-					//TODO enum_type data to be added to Atomspace
-				}
-				default:{
-					std::stringstream ss;
-					ss << col_type;
-					throw ComboException(TRACE_INFO,
-										 "atomese not handle type_node %s",
-										 ss.str().c_str());
-				}
-
-                _as.add_atom(in);
-
-			}
-
-		}
-
-    }
-    /**
-     *
-     * populate otable in  the Atomspace using OTable
-     * @param _as
-     * @return void
-     */
-    void populate_otable(AtomSpace& _as)
-    {
-        id::type_node out_type = target.get_type();
-        Handle out;
-        int target_size = target.size();
-
-        switch (out_type){
-            case id::boolean_type:
-            {
-                std::vector<ProtoAtomPtr> values = {};
-                for (int j = 0; j < target_size; j++)
-                {
-                    bool out_data = vertex_to_bool(target.at(j));
-                    values.push_back(ProtoAtomPtr(createLink(out_data ? TRUE_LINK : FALSE_LINK)));
-                }
-                ProtoAtomPtr ptr_atom(new LinkValue(values));
-                out->setValue(okey, ptr_atom);
-
-            }
-
-            case id::contin_type:
-            {
-                std::vector<double> col_values_contin = {};
-                for (int j = 0; j < target_size; j++) {
-                    col_values_contin.push_back(get_contin(target.at(j)));
-                }
-                ProtoAtomPtr ptr_atom(new FloatValue(col_values_contin));
-                out->setValue(okey, ptr_atom);
-
-            }
-            case id::enum_type:
-            {
-                //TODO enum populate add Atomspace
-            }
-            default:
-            {
-
-            }
-                _as.add_atom(out);
-
-        }
-
-    }
-    /**
-     * get data from Atomspace
-     * @param AtomSpace
-     * @retun vector<double>
-     */
-    std::vector<double> get_data_from_ats(AtomSpace& _as)
-    {
-       Handle out_data = _as.fetch_atom(okey);
-        ProtoAtomPtr outptr = out_data.get()->getValue(okey);
-        FloatValuePtr out_fptr =FloatValueCast(outptr);
-        return out_fptr->value();
-
-    }
 
 protected:
 	OTable target;
-    std::vector<double> otarget;
-	ITable itable;
-	int i = 0;
-	Handle key;
-    Handle okey;
-	Handle subprogram;
-	HandleSeq seq = {};
+	ITable cti;
 
 private:
 	// for a given data point calculate the error of the target

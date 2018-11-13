@@ -44,7 +44,6 @@
 #include <opencog/util/KLD.h>
 #include <opencog/util/MannWhitneyU.h>
 #include <moses/data/table/table_io.h>
-#include <opencog/atoms/base/Link.h>
 
 #include "bscores.h"
 
@@ -168,7 +167,7 @@ behavioral_score contin_bscore::operator()(const combo_tree &tr) const
 	// put the results into bs.
 	interpreter_visitor iv(tr);
 	auto interpret_tr = boost::apply_visitor(iv);
-	boost::transform(itable, target, back_inserter(bs),
+	boost::transform(cti, target, back_inserter(bs),
 	                 [&](const multi_type_seq &mts, const vertex &v) {
 		                 contin_t tar = get_contin(v),
 				                 res = get_contin(interpret_tr(mts.get_variant()));
@@ -179,123 +178,6 @@ behavioral_score contin_bscore::operator()(const combo_tree &tr) const
 
 	return bs;
 }
-
-behavioral_score contin_bscore::operator()(const Handle &program){
-
-	behavioral_score bs;
-	// create the key Node
-    key = createNode(NODE,"key");
-	// atomese_itable_integrate converts the itable
-	// to a handle program with values from the itable
-    atomese_itable_integrate(program);
-	//pass the key and the handle program to the interpreter
-	atomese::Interpreter interpreter(key);
-	//interpreter interprets the program and return the result
-	// in the form of ProtoAtomPtr
-	ProtoAtomPtr itable = interpreter(subprogram);
-	FloatValuePtr fptr = FloatValueCast(itable);
-
-	// back insert the score based on the err_func
-	boost::transform(fptr->value(), target, std::back_inserter(bs),
-					 [&](const double iv, const vertex& v){
-					contin_t tar = get_contin(v);
-					contin_t res = iv;
-					return  -err_func(res, tar);
-				});
-
-}
-
-void contin_bscore::atomese_itable_integrate(const Handle& program){
-
-
-	vector<multi_type_seq>::const_iterator it;
-
-	// iterate on the itable to know the types of data on the table
-	// and then create predicates and schemates and accordingly
-	// populate the predicates and schematea
-	for (it = itable.begin(); it < itable.end(); it++) {
-		//get the type of the date at the	ith column of the table
-        id::type_node col_type = itable.get_types().at(i);
-        int col_size = itable.size();
-
-			for(const Handle& h: program->getOutgoingSet()) {
-			// type of current handle
-			Type t = h->get_type();
-			// switch on the data types boolean, contin..
-			switch (col_type){
-				case id::boolean_type: {
-
-				if (t == PREDICATE_NODE) {
-					Handle p;
-					std::vector<ProtoAtomPtr> col_values = {};
-					for (int j = 0; j < col_size; j++) {
-						// for each element the ith column and the jth row
-						// change the vertex to bool
-						bool col_data = vertex_to_bool(itable.get_column_data(itable.get_labels().at(i)).at(j));
-						//create a ProtoAtomPtr of trueLink and false link then push
-						col_values.push_back(ProtoAtomPtr(createLink(col_data ? TRUE_LINK : FALSE_LINK)));
-					}
-					//create the protoAtomPtr
-					ProtoAtomPtr ptr_atom(new LinkValue(col_values));
-
-					p->setValue(key, ptr_atom);
-					// push back the handle with the values to HandleSeq seq
-					seq.push_back(p);
-					// create the subprogram based on the handle sequences
-					// we have at hand
- 					subprogram = createLink(seq, program->get_type());
-				}
-				else if (t == NODE) continue;
-
-				else {
-					// if program type not Node
-					atomese_itable_integrate(h);
-					seq.clear();
-					seq.push_back(subprogram);
-
-				}
-				}
-				//if the data on the table of ith colum is type contin
-				case id::contin_type: {
-
-				if (t == SCHEMA_NODE) {
-					Handle p;
-					std::vector<double> col_values_contin = {};
-					for (int j = 0; j < col_size; j++) {
-						//push back each value in the column to vector<double>
-						col_values_contin.push_back(get_contin(itable.get_column_data(itable.get_labels().at(i)).at(j)));
-					}
-					//create a FloatValue based on the col_values_contin
-					ProtoAtomPtr ptr_atom(new FloatValue(col_values_contin));
-					p->setValue(key, ptr_atom);
-					seq.push_back(p);
-					subprogram = createLink(seq, program->get_type());
-				}
-
-				else if (t == NODE) continue;
-
-				else {
-					//if  t is not a NODE i.e Link
-					atomese_itable_integrate(h);
-					seq.clear();
-					seq.push_back(subprogram);
-					}
-
-				}
-
-				default: {
-					std::stringstream ss;
-					ss << col_type;
-					throw ComboException(TRACE_INFO,
-					 "atomese_integrate not handle type_node %s",
-					ss.str().c_str());
-				}
-			}
-        }
-        i++;
-	}
-}
-
 
 behavioral_score contin_bscore::best_possible_bscore() const
 {
@@ -585,8 +467,6 @@ behavioral_score enum_table_bscore::operator()(const combo_tree &tr) const
 	log_candidate_bscore(tr, bs);
 	return bs;
 }
-
-
 
 behavioral_score enum_table_bscore::best_possible_bscore() const
 {
