@@ -12,9 +12,15 @@ void populate(AtomSpace *as, const ITable &itable) {
 	int n_columns = itable.get_types().size();
 	for (int i = 0; i < n_columns; i++) {
 		id::type_node col_type = itable.get_types().at(i);
-		const vertex_seq &col = itable.get_column_data(i);
-		const Handle &feature = createNode(SCHEMA_NODE,itable.get_labels().at(i));
-		const ValuePtr &vtr = vertex_seq_to_value(col, col_type);
+		vertex_seq col = itable.get_column_data(i);
+		Handle feature;
+		if (col_type == id::boolean_type){
+		feature = createNode(PREDICATE_NODE,itable.get_labels().at(i));
+		}
+		else {
+			feature = createNode(SCHEMA_NODE,itable.get_labels().at(i));
+		}
+		ValuePtr vtr = vertex_seq_to_value(col, col_type);
 		feature->setValue(value_key, vtr);
 		as->add_atom(feature);
 	}
