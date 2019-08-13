@@ -27,7 +27,6 @@
 
 #include <opencog/data/table/table.h>
 #include <opencog/atomese/interpreter/Interpreter.h>
-#include <boost/phoenix/core/argument.hpp>
 #include "scoring_base.h"
 #include "opencog/utils/value_key.h"
 
@@ -71,7 +70,6 @@ struct discriminator
     // the ctable). This is useful for finer grain bscore (see
     // variable discriminator_bscore::full_bscore)
     std::vector<d_counts> counts(const combo_tree&) const;
-    std::vector<d_counts> counts(const Handle&) const;
 
 protected:
     const CTable& _ctable;
@@ -195,8 +193,6 @@ struct prerec_bscore : public discriminating_bscore
                   float hardness = 1.0f);
 
     behavioral_score operator()(const combo_tree& tr) const;
-    behavioral_score operator()(const Handle& program) const;
-
 
 protected:
     virtual score_t get_fixed(score_t pos, score_t neg, unsigned cnt) const;
