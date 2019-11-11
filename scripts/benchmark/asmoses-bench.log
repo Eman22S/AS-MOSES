@@ -1,0 +1,502 @@
+(INFO eman ማክሰኞ፣ ኦክቶበር 29 ቀን  1:06:15 ከሰዓት EAT 2019 ዓ/ም )
+Run asmoses 10 times on multiple problems of various complexity
+ 
+---------------------------------------------------------------------
+ 
+
+Run asmoses -Hpa -k3 -m10000 (10/10)
+N	min	max	sum	mean	stddev
+10	1.39	1.47	14.32	1.432	0.0257337
+
+Run asmoses -Hpa -k3 -m10000 --atomspace-port=1 (10/10)
+N	min	max	sum	mean	stddev
+10	1.59	1.69	16.32	1.632	0.0358391
+
+Run asmoses -Hpa -k3 -m10000 --atomspace-port=1 --atomspace-store=1 (10/10)
+N	min	max	sum	mean	stddev
+10	1.62	1.67	16.44	1.644	0.017127
+
+Run asmoses -Hpa -k4 -m10000 (10/10)
+N	min	max	sum	mean	stddev
+10	5.45	5.53	54.93	5.493	0.0226323
+
+Run asmoses -Hpa -k4 -m10000 --atomspace-port=1 (10/10)
+N	min	max	sum	mean	stddev
+10	6.5	6.65	65.56	6.556	0.0501553
+
+Run asmoses -Hpa -k4 -m10000 --atomspace-port=1 --atomspace-store=1 (10/10)
+N	min	max	sum	mean	stddev
+10	6.49	6.76	66.24	6.624	0.0815407
+
+Run asmoses -Hpa -k5 -m10000 (10/10)
+N	min	max	sum	mean	stddev
+10	4.86	5	49.18	4.918	0.046619
+
+Run asmoses -Hpa -k5 -m10000 --atomspace-port=1 (10/10)
+N	min	max	sum	mean	stddev
+10	6.69	6.77	67.18	6.718	0.0252982
+
+Run asmoses -Hpa -k5 -m10000 --atomspace-port=1 --atomspace-store=1 (10/10)
+N	min	max	sum	mean	stddev
+10	6.68	6.92	67.91	6.791	0.0864677
+
+Run asmoses -Hdj -k3 -m10000 (10/10)
+N	min	max	sum	mean	stddev
+10	0.01	0.04	0.18	0.018	0.00918937
+
+Run asmoses -Hdj -k3 -m10000 --atomspace-port=1 (10/10)
+N	min	max	sum	mean	stddev
+10	0.02	0.03	0.21	0.021	0.00316228
+
+Run asmoses -Hdj -k3 -m10000 --atomspace-port=1 --atomspace-store=1 (10/10)
+N	min	max	sum	mean	stddev
+10	0.02	0.02	0.2	0.02	0
+
+Run asmoses -Hdj -k4 -m10000 (10/10)
+N	min	max	sum	mean	stddev
+10	0.02	0.02	0.2	0.02	0
+
+Run asmoses -Hdj -k4 -m10000 --atomspace-port=1 (10/10)
+N	min	max	sum	mean	stddev
+10	0.02	0.02	0.2	0.02	0
+
+Run asmoses -Hdj -k4 -m10000 --atomspace-port=1 --atomspace-store=1 (10/10)
+N	min	max	sum	mean	stddev
+10	0.02	0.02	0.2	0.02	0
+
+Run asmoses -Hdj -k5 -m10000 (10/10)
+N	min	max	sum	mean	stddev
+10	0.02	0.04	0.26	0.026	0.00699206
+
+Run asmoses -Hdj -k5 -m10000 --atomspace-port=1 (10/10)
+N	min	max	sum	mean	stddev
+10	0.04	0.04	0.4	0.04	0
+
+Run asmoses -Hdj -k5 -m10000 --atomspace-port=1 --atomspace-store=1 (10/10)
+N	min	max	sum	mean	stddev
+10	0.04	0.04	0.4	0.04	0
+
+Run asmoses -Hmux -k3 -m10000 (10/10)
+N	min	max	sum	mean	stddev
+10	14.59	14.98	147.79	14.779	0.139718
+
+Run asmoses -Hmux -k3 -m10000 --atomspace-port=1 (10/10)
+N	min	max	sum	mean	stddev
+10	267.1	290.34	2766.6	276.66	7.06406
+
+Run asmoses -Hmux -k3 -m10000 --atomspace-port=1 --atomspace-store=1 (10/10)
+N	min	max	sum	mean	stddev
+10	275.65	288.92	2815.43	281.543	4.36717
+
+Run asmoses -Hmux -k4 -m10000 (10/10)
+N	min	max	sum	mean	stddev
+10	1593.64	1653.21	16208.7	1620.87	19.6004
+
+Run asmoses -Hmux -k4 -m10000 --atomspace-port=1 (10/10)
+N	min	max	sum	mean	stddev
+10	6394.05	9152.55	69723.1	6972.31	859.591
+
+(INFO eman ረቡዕ፣ ኦክቶበር 30 ቀን  2:47:06 ከሰዓት EAT 2019 ዓ/ም )
+Run asmoses 3 times on multiple problems of various complexity
+ 
+---------------------------------------------------------------------
+ 
+Run asmoses 3 times on multiple datasets 
+ 
+---------------------------------------------------------------------
+ 
+
+Run asmoses -i datasets/contin_data.csv -m10000 (3/3)
+N	min	max	sum	mean	stddev
+3	0.01	0.04	0.06	0.02	0.0173205
+
+Run asmoses -i datasets/contin_data.csv -m10000 --atomspace-port=1 (3/3)
+N	min	max	sum	mean	stddev
+3	1.57	1.68	4.82	1.60667	0.0635085
+
+Run asmoses -i datasets/contin_data.csv -m10000 --atomspace-port=1 --atomspace-store=1 (3/3)
+N	min	max	sum	mean	stddev
+3	1.59	1.62	4.81	1.60333	0.0152753
+
+Run asmoses -i datasets/contin_precision.csv -m10000 (3/3)
+N	min	max	sum	mean	stddev
+3	12.75	12.9	38.41	12.8033	0.083865
+
+Run asmoses -i datasets/contin_precision.csv -m10000 --atomspace-port=1 (3/3)
+
+Run asmoses -i datasets/contin_precision.csv -m10000 --atomspace-port=1 --atomspace-store=1 (3/3)
+N	min	max	sum	mean	stddev
+3	140.16	144.43	427.47	142.49	2.16155
+
+Run asmoses -i datasets/Cowles.csv -m10000 (3/3)
+N	min	max	sum	mean	stddev
+3	16.48	16.57	49.54	16.5133	0.0493288
+
+Run asmoses -i datasets/Cowles.csv -m10000 --atomspace-port=1 (3/3)
+N	min	max	sum	mean	stddev
+3	0.36	0.39	1.12	0.373333	0.0152753
+
+Run asmoses -i datasets/Cowles.csv -m10000 --atomspace-port=1 --atomspace-store=1 (3/3)
+N	min	max	sum	mean	stddev
+3	0.36	0.37	1.1	0.366667	0.0057735
+
+Run asmoses -i datasets/disc_contin_data.csv -m10000 (3/3)
+N	min	max	sum	mean	stddev
+3	1.83	1.83	5.49	1.83	0
+
+Run asmoses -i datasets/disc_contin_data.csv -m10000 --atomspace-port=1 (3/3)
+N	min	max	sum	mean	stddev
+3	3.08	3.13	9.29	3.09667	0.0288675
+
+Run asmoses -i datasets/disc_contin_data.csv -m10000 --atomspace-port=1 --atomspace-store=1 (3/3)
+N	min	max	sum	mean	stddev
+3	3.1	3.25	9.53	3.17667	0.0750555
+
+Run asmoses -i datasets/iris.data -m10000 (3/3)
+N	min	max	sum	mean	stddev
+3	125.36	125.88	376.85	125.617	0.260064
+
+Run asmoses -i datasets/iris.data -m10000 --atomspace-port=1 (3/3)
+N	min	max	sum	mean	stddev
+3	0.08	0.08	0.24	0.08	0
+
+Run asmoses -i datasets/iris.data -m10000 --atomspace-port=1 --atomspace-store=1 (3/3)
+N	min	max	sum	mean	stddev
+3	0.08	0.08	0.24	0.08	0
+
+Run asmoses -i datasets/IrisSetosa.data -m10000 (3/3)
+N	min	max	sum	mean	stddev
+3	0.51	0.52	1.55	0.516667	0.0057735
+
+Run asmoses -i datasets/IrisSetosa.data -m10000 --atomspace-port=1 (3/3)
+N	min	max	sum	mean	stddev
+3	0.51	0.51	1.53	0.51	0
+
+Run asmoses -i datasets/IrisSetosa.data -m10000 --atomspace-port=1 --atomspace-store=1 (3/3)
+N	min	max	sum	mean	stddev
+3	0.52	0.52	1.56	0.52	0
+
+Run asmoses -i datasets/KL_test.csv -m10000 (3/3)
+N	min	max	sum	mean	stddev
+3	47.61	47.84	143.28	47.76	0.13
+
+Run asmoses -i datasets/KL_test.csv -m10000 --atomspace-port=1 (3/3)
+N	min	max	sum	mean	stddev
+3	208.01	218.86	641.69	213.897	5.48361
+
+Run asmoses -i datasets/KL_test.csv -m10000 --atomspace-port=1 --atomspace-store=1 (3/3)
+N	min	max	sum	mean	stddev
+3	211.41	221.81	648.11	216.037	5.29397
+
+Run asmoses -i datasets/melanoma.csv -m10000 (3/3)
+N	min	max	sum	mean	stddev
+3	51.63	55.91	159.48	53.16	2.38661
+
+Run asmoses -i datasets/melanoma.csv -m10000 --atomspace-port=1 (3/3)
+N	min	max	sum	mean	stddev
+3	0.35	0.36	1.07	0.356667	0.0057735
+
+Run asmoses -i datasets/melanoma.csv -m10000 --atomspace-port=1 --atomspace-store=1 (3/3)
+N	min	max	sum	mean	stddev
+3	0.35	0.36	1.07	0.356667	0.0057735
+
+Run asmoses -i datasets/opencog.log -m10000 (3/3)
+N	min	max	sum	mean	stddev
+3	0.25	0.26	0.76	0.253333	0.0057735
+
+Run asmoses -i datasets/opencog.log -m10000 --atomspace-port=1 (3/3)
+N	min	max	sum	mean	stddev
+3	0.25	0.26	0.76	0.253333	0.0057735
+
+Run asmoses -i datasets/opencog.log -m10000 --atomspace-port=1 --atomspace-store=1 (3/3)
+N	min	max	sum	mean	stddev
+3	0.25	0.26	0.77	0.256667	0.0057735
+
+Run asmoses -i datasets/precision.csv -m10000 (3/3)
+N	min	max	sum	mean	stddev
+3	0.01	0.01	0.03	0.01	0
+
+Run asmoses -i datasets/precision.csv -m10000 --atomspace-port=1 (3/3)
+N	min	max	sum	mean	stddev
+3	4.58	4.64	13.81	4.60333	0.0321455
+
+Run asmoses -i datasets/precision.csv -m10000 --atomspace-port=1 --atomspace-store=1 (3/3)
+N	min	max	sum	mean	stddev
+3	4.57	4.59	13.74	4.58	0.01
+
+Run asmoses -i datasets/predicates-1.3.csv -m10000 (3/3)
+N	min	max	sum	mean	stddev
+3	13.82	13.9	41.59	13.8633	0.0404145
+
+Run asmoses -i datasets/predicates-1.3.csv -m10000 --atomspace-port=1 (3/3)
+N	min	max	sum	mean	stddev
+3	4.64	4.74	14.07	4.69	0.05
+
+Run asmoses -i datasets/predicates-1.3.csv -m10000 --atomspace-port=1 --atomspace-store=1 (3/3)
+N	min	max	sum	mean	stddev
+3	4.6	4.7	13.96	4.65333	0.0503322
+
+Run asmoses -i datasets/predicates.csv -m10000 (3/3)
+N	min	max	sum	mean	stddev
+3	0.13	0.14	0.4	0.133333	0.0057735
+
+Run asmoses -i datasets/predicates.csv -m10000 --atomspace-port=1 (3/3)
+N	min	max	sum	mean	stddev
+3	0.08	0.08	0.24	0.08	0
+
+Run asmoses -i datasets/predicates.csv -m10000 --atomspace-port=1 --atomspace-store=1 (3/3)
+N	min	max	sum	mean	stddev
+3	0.08	0.08	0.24	0.08	0
+
+Run asmoses -i datasets/preselect-less-dupe.csv -m10000 (3/3)
+N	min	max	sum	mean	stddev
+3	9.79	9.92	29.55	9.85	0.0655744
+
+Run asmoses -i datasets/preselect-less-dupe.csv -m10000 --atomspace-port=1 (3/3)
+N	min	max	sum	mean	stddev
+3	0.37	0.37	1.11	0.37	0
+
+Run asmoses -i datasets/preselect-less-dupe.csv -m10000 --atomspace-port=1 --atomspace-store=1 (3/3)
+N	min	max	sum	mean	stddev
+3	0.37	0.37	1.11	0.37	0
+
+Run asmoses -i datasets/preselect-no-dupe.csv -m10000 (3/3)
+N	min	max	sum	mean	stddev
+3	11.92	12.09	35.99	11.9967	0.0862168
+
+Run asmoses -i datasets/preselect-no-dupe.csv -m10000 --atomspace-port=1 (3/3)
+N	min	max	sum	mean	stddev
+3	0.37	0.37	1.11	0.37	0
+
+Run asmoses -i datasets/preselect-no-dupe.csv -m10000 --atomspace-port=1 --atomspace-store=1 (3/3)
+N	min	max	sum	mean	stddev
+3	0.37	0.39	1.14	0.38	0.01
+
+Run asmoses -i datasets/select.csv -m10000 (3/3)
+N	min	max	sum	mean	stddev
+3	59.19	60.59	179.74	59.9133	0.701166
+
+Run asmoses -i datasets/select.csv -m10000 --atomspace-port=1 (3/3)
+N	min	max	sum	mean	stddev
+3	605.18	638.43	1868.23	622.743	16.7043
+
+Run asmoses -i datasets/select.csv -m10000 --atomspace-port=1 --atomspace-store=1 (3/3)
+N	min	max	sum	mean	stddev
+3	616.43	635.45	1879.01	626.337	9.53479
+
+Run asmoses -i datasets/select-less-dupe.csv -m10000 (3/3)
+N	min	max	sum	mean	stddev
+3	61.58	67.39	194.03	64.6767	2.92391
+
+Run asmoses -i datasets/select-less-dupe.csv -m10000 --atomspace-port=1 (3/3)
+N	min	max	sum	mean	stddev
+3	575.99	581.66	1739.26	579.753	3.25924
+
+Run asmoses -i datasets/select-less-dupe.csv -m10000 --atomspace-port=1 --atomspace-store=1 (3/3)
+N	min	max	sum	mean	stddev
+3	575.69	577.76	1730.93	576.977	1.12305
+
+Run asmoses -i datasets/select-no-dupe.csv -m10000 (3/3)
+N	min	max	sum	mean	stddev
+3	63.29	66.84	194.93	64.9767	1.78158
+
+Run asmoses -i datasets/select-no-dupe.csv -m10000 --atomspace-port=1 (3/3)
+N	min	max	sum	mean	stddev
+3	583.95	617.48	1806.84	602.28	16.9827
+
+Run asmoses -i datasets/select-no-dupe.csv -m10000 --atomspace-port=1 --atomspace-store=1 (3/3)
+N	min	max	sum	mean	stddev
+3	597	609.12	1805.44	601.813	6.43321
+
+Run asmoses -i datasets/weight-neg.csv -m10000 (3/3)
+N	min	max	sum	mean	stddev
+3	0.06	0.06	0.18	0.06	0
+
+Run asmoses -i datasets/weight-neg.csv -m10000 --atomspace-port=1 (3/3)
+N	min	max	sum	mean	stddev
+3	1.82	1.86	5.5	1.83333	0.023094
+
+Run asmoses -i datasets/weight-neg.csv -m10000 --atomspace-port=1 --atomspace-store=1 (3/3)
+N	min	max	sum	mean	stddev
+3	1.83	1.88	5.54	1.84667	0.0288675
+(INFO eman ሰኞ፣ ኖቬምበር  4 ቀን  5:57:37 ከሰዓት EAT 2019 ዓ/ም )
+Run asmoses 3 times on Melanoma and Cowles datasets 
+ 
+---------------------------------------------------------------------
+ 
+
+Run asmoses -i datasets/extr/Cowles.csv -m10000 (3/3)
+N	min	max	sum	mean	stddev
+3	0.38	0.43	1.19	0.396667	0.0288675
+
+Run asmoses -i datasets/extr/Cowles.csv -m10000 --atomspace-port=1 (3/3)
+N	min	max	sum	mean	stddev
+3	25.6	25.87	77.17	25.7233	0.136504
+
+Run asmoses -i datasets/extr/Cowles.csv -m10000 --atomspace-port=1 --atomspace-store=1 (3/3)
+N	min	max	sum	mean	stddev
+3	25.86	25.91	77.67	25.89	0.0264575
+
+Run asmoses -i datasets/extr/melanoma.csv -m10000 (3/3)
+N	min	max	sum	mean	stddev
+3	21.84	22.35	66.05	22.0167	0.288848
+
+Run asmoses -i datasets/extr/melanoma.csv -m10000 --atomspace-port=1 (3/3)
+N	min	max	sum	mean	stddev
+3	0.36	0.41	1.16	0.386667	0.0251661
+
+Run asmoses -i datasets/extr/melanoma.csv -m10000 --atomspace-port=1 --atomspace-store=1 (3/3)
+N	min	max	sum	mean	stddev
+3	0.36	0.37	1.09	0.363333	0.0057735
+(INFO eman ሰኞ፣ ኖቬምበር  4 ቀን  6:17:08 ከሰዓት EAT 2019 ዓ/ም )
+Run asmoses 3 times on multiple problems of various complexity
+ 
+---------------------------------------------------------------------
+ 
+Run asmoses 3 times on multiple datasets 
+ 
+---------------------------------------------------------------------
+ 
+
+Run asmoses -i datasets/Cowles.csv -m10000 (3/3)
+N	min	max	sum	mean	stddev
+3	0.39	0.42	1.2	0.4	0.0173205
+(INFO eman ሰኞ፣ ኖቬምበር  4 ቀን  6:19:33 ከሰዓት EAT 2019 ዓ/ም )
+Run asmoses 3 times on Melanoma and Cowles dataset 
+ 
+---------------------------------------------------------------------
+ 
+
+Run asmoses -i datasets/Cowles.csv -m10000 (3/3)
+N	min	max	sum	mean	stddev
+3	0.39	0.42	1.2	0.4	0.0173205
+(INFO eman ሰኞ፣ ኖቬምበር  4 ቀን  6:19:56 ከሰዓት EAT 2019 ዓ/ም )
+Run asmoses 3 times on Melanoma and Cowles dataset 
+ 
+---------------------------------------------------------------------
+ 
+
+Run asmoses -i datasets/Cowles.csv -m10000 (3/3)
+N	min	max	sum	mean	stddev
+3	0.39	0.43	1.22	0.406667	0.0208167
+
+Run asmoses -i datasets/Cowles.csv -m10000 --atomspace-port=1 (3/3)
+N	min	max	sum	mean	stddev
+3	24.86	25.47	75.51	25.17	0.305123
+
+Run asmoses -i datasets/Cowles.csv -m10000 --atomspace-port=1 --atomspace-store=1 (3/3)
+N	min	max	sum	mean	stddev
+3	25.52	27.04	78.54	26.18	0.779487
+
+Run asmoses -i datasets/melanoma.csv -m10000 (3/3)
+N	min	max	sum	mean	stddev
+3	21.58	21.76	64.98	21.66	0.0916515
+
+Run asmoses -i datasets/melanoma.csv -m10000 --atomspace-port=1 (3/3)
+N	min	max	sum	mean	stddev
+3	0.39	0.4	1.18	0.393333	0.0057735
+
+Run asmoses -i datasets/melanoma.csv -m10000 --atomspace-port=1 --atomspace-store=1 (3/3)
+N	min	max	sum	mean	stddev
+3	0.37	0.39	1.14	0.38	0.01
+(INFO eman ማክሰኞ፣ ኖቬምበር  5 ቀን  2:39:57 ከሰዓት EAT 2019 ዓ/ም )
+Run asmoses 3 times on Melanoma and Cowles dataset No errors produced! 
+ 
+---------------------------------------------------------------------
+ 
+
+Run asmoses -i datasets/Cowles.csv -m10000 (3/3)
+N	min	max	sum	mean	stddev
+3	0.39	0.42	1.2	0.4	0.0173205
+
+Run asmoses -i datasets/Cowles.csv -m10000 --atomspace-port=1 (3/3)
+N	min	max	sum	mean	stddev
+3	25.41	26.78	78.88	26.2933	0.766312
+
+Run asmoses -i datasets/Cowles.csv -m10000 --atomspace-port=1 --atomspace-store=1 (3/3)
+N	min	max	sum	mean	stddev
+3	25.95	26.75	78.71	26.2367	0.445571
+
+Run asmoses -i datasets/melanoma.csv -m10000 (3/3)
+N	min	max	sum	mean	stddev
+3	6.7	6.85	20.36	6.78667	0.0776745
+
+Run asmoses -i datasets/melanoma.csv -m10000 --atomspace-port=1 (3/3)
+N	min	max	sum	mean	stddev
+3	56.72	57.81	171.9	57.3	0.548361
+
+Run asmoses -i datasets/melanoma.csv -m10000 --atomspace-port=1 --atomspace-store=1 (3/3)
+N	min	max	sum	mean	stddev
+3	57.66	60.21	176.24	58.7467	1.31607
+(INFO eman ሐሙስ፣ ኖቬምበር  7 ቀን  3:12:23 ከሰዓት EAT 2019 ዓ/ም )
+Run asmoses 3 times on multiple problems of various complexity
+ 
+---------------------------------------------------------------------
+ 
+Run asmoses -Hpa -k3 -m2000 -p0.0001 (3/3)
+N	min	max	sum	mean	stddev
+3	0.49	0.53	1.52	0.506667	0.0208167
+Run asmoses -Hpa -k3 -m2000 -p0.0001 --atomspace-port=1 (3/3)
+N	min	max	sum	mean	stddev
+3	0.55	0.56	1.66	0.553333	0.0057735
+Run asmoses -Hpa -k3 -m2000 -p0.0001 --atomspace-port=1 --atomspace-store=1 (3/3)
+N	min	max	sum	mean	stddev
+3	0.55	0.57	1.69	0.563333	0.011547
+Run asmoses -Hpa -k4 -m2000 -p0.0001 (3/3)
+N	min	max	sum	mean	stddev
+3	0.71	0.72	2.15	0.716667	0.0057735
+Run asmoses -Hpa -k4 -m2000 -p0.0001 --atomspace-port=1 (3/3)
+N	min	max	sum	mean	stddev
+3	0.84	0.87	2.57	0.856667	0.0152753
+Run asmoses -Hpa -k4 -m2000 -p0.0001 --atomspace-port=1 --atomspace-store=1 (3/3)
+N	min	max	sum	mean	stddev
+3	0.85	0.87	2.59	0.863333	0.011547
+Run asmoses -Hpa -k5 -m2000 -p0.0001 (3/3)
+N	min	max	sum	mean	stddev
+3	0.14	0.14	0.42	0.14	0
+Run asmoses -Hpa -k5 -m2000 -p0.0001 --atomspace-port=1 (3/3)
+N	min	max	sum	mean	stddev
+3	0.24	0.26	0.76	0.253333	0.011547
+Run asmoses -Hpa -k5 -m2000 -p0.0001 --atomspace-port=1 --atomspace-store=1 (3/3)
+N	min	max	sum	mean	stddev
+3	0.25	0.26	0.76	0.253333	0.0057735
+Run asmoses -Hmux -k3 -m2000 -p0.0001 (3/3)
+N	min	max	sum	mean	stddev
+3	0.85	0.88	2.61	0.87	0.0173205
+Run asmoses -Hmux -k3 -m2000 -p0.0001 --atomspace-port=1 (3/3)
+N	min	max	sum	mean	stddev
+3	21.14	25.35	71.72	23.9067	2.39675
+Run asmoses -Hmux -k3 -m2000 -p0.0001 --atomspace-port=1 --atomspace-store=1 (3/3)
+N	min	max	sum	mean	stddev
+3	20.97	21.09	63.15	21.05	0.069282
+Run asmoses -Hmux -k4 -m2000 -p0.0001 (3/3)
+N	min	max	sum	mean	stddev
+3	154.14	161.49	471.4	157.133	3.86
+Run asmoses -Hmux -k4 -m2000 -p0.0001 --atomspace-port=1 (3/3)
+N	min	max	sum	mean	stddev
+3	19304.9	19396.7	58039.7	19346.6	46.4874
+Run asmoses 3 times on Melanoma and Cowles dataset 
+ 
+---------------------------------------------------------------------
+ 
+Run asmoses -i datasets/iris.data -m10000 (3/3)
+N	min	max	sum	mean	stddev
+3	126.98	131.13	385.65	128.55	2.25182
+Run asmoses -i datasets/iris.data -m10000 --atomspace-port=1 (3/3)
+N	min	max	sum	mean	stddev
+3	0.09	0.11	0.3	0.1	0.01
+Run asmoses -i datasets/iris.data -m10000 --atomspace-port=1 --atomspace-store=1 (3/3)
+N	min	max	sum	mean	stddev
+3	0.09	0.1	0.29	0.0966667	0.0057735
+Run asmoses -i datasets/IrisSetosa.data -m10000 (3/3)
+N	min	max	sum	mean	stddev
+3	0.57	0.58	1.73	0.576667	0.0057735
+Run asmoses -i datasets/IrisSetosa.data -m10000 --atomspace-port=1 (3/3)
+N	min	max	sum	mean	stddev
+3	0.54	0.56	1.65	0.55	0.01
+Run asmoses -i datasets/IrisSetosa.data -m10000 --atomspace-port=1 --atomspace-store=1 (3/3)
+N	min	max	sum	mean	stddev
+3	0.56	0.61	1.75	0.583333	0.0251661
+Run asmoses -Hmux -k4 -m2000 -p0.0001 --atomspace-port=1 --atomspace-store=1 (3/3)
+N	min	max	sum	mean	stddev
+3	15271.6	19462.7	54196.8	18065.6	2419.68
